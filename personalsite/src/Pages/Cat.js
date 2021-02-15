@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 
 class Cat extends Component {
@@ -6,12 +7,51 @@ class Cat extends Component {
         this.state = {color: "calico"};
     }
 
-    changeState = () =>{
+    changeState = () => {
         this.setState(color, "tabby");
     }
 
-    render(){
+    fetchData = () =>{
+        axios.get("https://poetrydb.org/random")
+        .then((response) => {
+            console.log(response);
+            this.setState({
+                data: response.data[0]
+            })
+        }).catch((error) => {
+            console.log(error);
+        })
+        }
 
+    renderPoem = () =>{
+        if(this.state.data){
+            return(
+               <div>
+                   <div>Title: {this.state.data.title}</div>
+                   <div>Author: {this.state.data.author}</div>
+
+                <div>{
+                    
+                    this.state.data.lines.map((line) => {return(<div>{line}</div>)
+                    })
+
+
+                    }
+
+               </div>
+            )
+        }
+        else{
+            <div>no poem</div>
+        }
+
+    }
+    
+
+    render()
+
+    {
+        console.log(this.state.data);
         var editBoxOrEditButton = null;
         if(this.state.editing){
             editBoxOrEditButton = (
@@ -20,10 +60,13 @@ class Cat extends Component {
                     <button> submit </button>
                 </div>
             )
+       
         }
         else{
             editBoxOrEditButton = <button onClick ={this.editTitle}> Edit Title </button>
         }
+
+        
 
         return(
             <div>
@@ -37,10 +80,13 @@ class Cat extends Component {
             <p>the cat's color is {this.state.color} </p>
             <p> the cat's name is {this.props.name}</p>
             <button onClick = {this.changeState}> Click me </button>
+            <button onClick={this.fetchData}>click me for poem</button>
+            
             </div>
-        )
+        );
+        }
   
-    }
-}
+    }     
+    
 
 export default Cat;

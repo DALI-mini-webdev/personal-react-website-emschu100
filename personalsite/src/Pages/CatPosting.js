@@ -5,19 +5,17 @@ class CatPosting extends Component {
         this.state = {};
     }
 
-    deletePosting = () =>{
+    deletePosting = () => {
         this.props.delete(this.props.id)
         console.log("deleted")
     }
 
-    editColor = () =>{
+    editColor = () => {
         this.setState({color: "tabby"})
     }
 
-
-    <button onClick={this.submit}> submit </button>
-
     submit = () => {
+        
         var newName = {
             name:this.state.newTitle
         }
@@ -26,24 +24,30 @@ class CatPosting extends Component {
     }
 
 
+
     save = (id, field) => {
         this.setState({cats:this.state.cats.update(id, (n) => { return Object.assign({}, n, field); })})
     }
 
-    render(){
-
+    render()
+        {
 return(
 
     <div>
+        
         <p>{this.props.name}, {this.props.color}</p>
         <img src = {this.props.catURL} width={100} height={100}/>
+        <button onClick={this.submit}> submit </button>
         <button onClick={this.deletePosting}>Delete</button>
-        <button onClick={this.editColor}>Edit Cat's Color</button>
-        </div>
+        <button onClick={this.editColor}>Edit Cat Color </button>
+    </div>
 )
+        }
+
+    
+
+
 
     }
-
-}
 
 export default CatPosting;
