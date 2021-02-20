@@ -5,6 +5,9 @@ import Cat from './Pages/Cat';
 import download1 from'./Photos/download1.jpg';
 import download from'./Photos/download.jpg';
 import download2 from'./Photos/download2.jpg';
+import Firebase from './firebase/index';
+/*import CatBoard from './components/CatBoard';*/
+import ToDoBoard from './components/ToDoBoard';
 
 
 function App(){ 
@@ -16,9 +19,15 @@ function App(){
     console.log("the button was clicked");
   }
 
+  console.log(firebase);
+    console.log(firebase.db);
+
 
   return (
+
     <div className="App">
+    <CatBoard />
+    <ToDoBoard />
 
 <header className="App-header">
   <Cat name = "Midnight"/>
